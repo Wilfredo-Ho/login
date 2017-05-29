@@ -2,19 +2,19 @@
 login相关整理
 
 
-## 1.登录页面信息保存
+### 1.登录页面信息保存
     cookie的读取和设置
     chrome下无法在本地调试，默认不可以存储本地cookie
    
-## 2.flex布局，实现上下左右居中
+### 2.flex布局，实现上下左右居中
   ie9下不支持flex, 需要ie11,关于查看兼容性可以参考网址[caniuse](http://caniuse.com/)
   
-## 3.背景图自适应问题
+### 3.背景图自适应问题
   全屏背景图的解决方案？
   
-## 4.关于浏览器所有宽高整理
+### 4.关于浏览器所有宽高整理
     
-网页可见区域宽：document.body.clientWidth
+>网页可见区域宽：document.body.clientWidth
 
 网页可见区域高：document.body.clientHeight
 
@@ -90,4 +90,4 @@ clientHeight = height - border
 
 offsetWidth = width
 
-offsetHeight = height
+>offsetHeight = height
