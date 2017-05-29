@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录</title>
+</head>
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	html, body{
+		width:100%;
+		height:100%;
+	}
+	body{
+		background-image: url(login2.png);
+		background-size: 100% 100%;
+		font-family: "微软雅黑" sans-serif;
+	}
+	.container {
+	  /* display: -webkit-flex;
+	  display: flex;
+	  justify-content: center;
+	        justify-content: center;
+	        align-items: center; */
+	  width: 100%;
+	  height: 100%;
+	  padding-top: 15%;
+	  box-sizing: border-box;
+	}
+	.container .login {
+	  width: 20%;
+	  margin: 0 auto;
+	  background: #fff;
+	  border: 1px solid #666;
+	  border-radius: 4px;
+	}
+	.container .login .header {
+	  width: 100%;
+	  height: 60px;
+	  line-height: 60px;
+	  border-bottom: 1px solid #666;
+	  text-align: center;
+	}
+	.container .login .content {
+	  width: 100%;
+	  padding: 30px 15px 10px;
+	}
+	.container .login .content .input_group {
+	  height: 50px;
+	  line-height: 50px;
+	}
+	.container .login .content .input_group label {
+	  display: inline-block;
+	  width: 20%;
+	  text-align: justify;
+	}
+	.container .login .content .input_group input {
+	  display: inline-block;
+	  width: 60%;
+	  /*margin-left: 10%;*/
+	  padding: 6px 8px;
+	  /*border-radius: 2px;*/
+	}
+	.login .remeber{
+		height: 30px;
+		line-height: 30px;
+		padding-left: 15px;
+	}
+	.login .footer{
+		margin: 20px;
+		text-align: center;
+	}
+	.login .footer .btn{
+		padding: 8px 30px;
+		cursor: pointer;
+		border: 1px solid #666;
+		background: #98CDEA;
+		color: #fff;
+	}
+	#problem{
+		color:#FC4343;
+		font-size: 12px;
+		height: 14px;
+		line-height: 14px;
+	}
+	input[type='checkbox']{
+		width: 15px;
+		height: 15px;
+		vertical-align: middle;
+	}
+</style>
+<body>
+	<div class="container">
+		<div class="login">
+			<h3 class="header">登 录</h3>
+			<div class="content">
+				<p id="problem"></p>
+				<div class="input_group">
+					<label for="">用户名</label>
+					<input type="text" id="username">
+				</div>
+				<div class="input_group">
+					<label for="">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+					<input type="password" id="password">
+				</div>
+			</div>
+			<p class="remeber">
+				<input type="checkbox" id="remember" checked> 下次自动登陆
+			</p>
+			<div class="footer">
+				<input type="submit" value="登录" class="btn" onclick="login()">
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+	/*
+		*默认用户名：admin
+		*默认密  码：123456
+	 */
+	var user = "admin";
+	var pass = "123456";
+
+	var username = document.getElementById('username');
+	var password = document.getElementById('password');
+	var problem = document.getElementById('problem');
+	var remember = document.getElementById('remember');
+
+	if (getCookie('username')) {
+		username.value = getCookie('username');
+	}
+
+	if (getCookie('password')) {
+		password.value = getCookie('password');
+	}
+
+	// 用户在界面按下"enter"也为提交表单
+	document.body.addEventListener('keyup', function(e){
+		if(e.keyCode == 13){
+			login();
+		}
+	});
+
+	function setCookie(name, value, days) {
+		var date = new Date();
+		date.setDate(date.getDate() + days);
+		// console.log(date);
+		var str = name + "=" + escape(value) + ";expires=" + date.toGMTString();
+		document.cookie = str; 
+	}
+
+	function getCookie(name) {
+		if(document.cookie.length > 0){
+			c_start = document.cookie.indexOf(name + '=')
+			if(c_start != -1){
+				c_start = c_start + name.length + 1;
+				c_end = document.cookie.indexOf(';', c_start);
+				if(c_end == -1) c_end = document.cookie.length;
+				return unescape(document.cookie.substring(c_start, c_end));
+			}
+		}
+		return ""
+	}
+
+	function login(){
+
+		var name = username.value;
+		var passw = password.value;
+		
+		if(!name){
+			problem.innerHTML = "请输入用户名";
+			return;
+		}
+		if(!passw){
+			problem.innerHTML = "请输入密码";
+			return;
+		}
+		if(name && name != user){
+			problem.innerHTML = "用户名不正确";
+			return;
+		}
+		if(passw && passw != pass){
+			problem.innerHTML = "密码不正确";
+			return;
+		}
+		problem.innerHTML = "";
+		if((name == user) && (passw == pass)){
+			if(remember.checked){
+				setCookie('username', name, 1);
+				setCookie('password', passw, 1);
+			}else{
+				setCookie('username', name, -1);
+				setCookie('password', passw, -1);
+			}
+		}
+
+
+		window.location.href = "./index1.html";
+	}
+</script>
